@@ -1,14 +1,15 @@
 <?php
 
 declare(strict_types=1);
+
+use AiSdk\ByteDance;
 use AiSdk\ByteDance\ByteDanceOptions;
 use AiSdk\ByteDance\ByteDanceProvider;
-use AiSdk\ByteDance\Models\ByteDanceVideoModel;
 use AiSdk\Contracts\EmbeddingProviderInterface;
 use AiSdk\Contracts\ImageProviderInterface;
 use AiSdk\Contracts\TextProviderInterface;
 use AiSdk\Contracts\VideoProviderInterface;
-use AiSdk\Requests\VideoRequest;
+use AiSdk\Generate;
 use AiSdk\Support\Sdk;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
@@ -34,7 +35,14 @@ it('exposes every implemented ByteDance capability', function () {
 it('starts ByteDance video tasks', function () {
     $c = new ByteDanceFakeClient;
     $f = new Psr17Factory;
-    $m = new ByteDanceVideoModel('seedance', new ByteDanceOptions('key', sdk: new Sdk($c, $f, $f)));
-    $j = $m->generate(new VideoRequest('A scene'));
+    ByteDance::create([
+        'apiKey' => 'key',
+        'sdk' => new Sdk($c, $f, $f),
+    ]);
+
+    $j = Generate::video('A scene')
+        ->model(ByteDance::model('seedance'))
+        ->job();
+
     expect($j->id)->toBe('job-1')->and($c->request?->getUri()->getPath())->toBe('/api/v3/contents/generations/tasks');
 });

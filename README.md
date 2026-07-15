@@ -6,7 +6,7 @@ Configuration uses `ARK_API_KEY`; `baseUrl` can select the BytePlus or Volcengin
 
 ```php
 $video = Generate::video('A cinematic sunrise')
-    ->model(ByteDance::video('doubao-seedance-1-0-pro-250528'))
+    ->model(ByteDance::model('doubao-seedance-1-0-pro-250528'))
     ->aspectRatio('16:9')
     ->duration(5)
     ->run(timeout: 600);

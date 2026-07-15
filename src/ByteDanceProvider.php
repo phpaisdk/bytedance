@@ -27,22 +27,22 @@ final class ByteDanceProvider extends BaseProvider implements EmbeddingProviderI
         return ByteDanceOptions::PROVIDER_NAME;
     }
 
-    public function videoModel(string $modelId): VideoModelInterface
+    protected function videoModel(string $modelId): VideoModelInterface
     {
         return new ByteDanceVideoModel($modelId, $this->options);
     }
 
-    public function textModel(string $modelId): TextModelInterface
+    protected function textModel(string $modelId): TextModelInterface
     {
         return new ByteDanceTextModel($modelId, $this->options);
     }
 
-    public function imageModel(string $modelId): ImageModelInterface
+    protected function imageModel(string $modelId): ImageModelInterface
     {
         return new ByteDanceImageModel($modelId, $this->options);
     }
 
-    public function embeddingModel(string $modelId): EmbeddingModelInterface
+    protected function embeddingModel(string $modelId): EmbeddingModelInterface
     {
         return new ByteDanceEmbeddingModel($modelId, $this->options);
     }
