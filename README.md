@@ -19,3 +19,14 @@ $video = Generate::video('A cinematic sunrise')
     ->duration(5)
     ->run(timeout: 600);
 ```
+
+## Documentation
+
+- [PHP AI SDK documentation](https://phpaisdk.com/docs)
+- [ByteDance documentation](https://phpaisdk.com/docs/bytedance)
+
+## Community
+
+- [Contributing](https://github.com/phpaisdk/.github/blob/main/CONTRIBUTING.md)
+- [Support](https://github.com/phpaisdk/.github/blob/main/SUPPORT.md)
+- For private security reports, email [security@phpaisdk.com](mailto:security@phpaisdk.com).
