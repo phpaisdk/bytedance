@@ -43,7 +43,7 @@ final class ByteDanceVideoModel extends BaseModel implements VideoModelInterface
             foreach ((array) ($o[$key] ?? []) as $url) {
                 $content[] = ['type' => str_contains($role, 'video') ? 'video_url' : (str_contains($role, 'audio') ? 'audio_url' : 'image_url'), str_contains($role, 'video') ? 'video_url' : (str_contains($role, 'audio') ? 'audio_url' : 'image_url') => ['url' => $url], 'role' => $role];
             }
-        }$body = array_filter(['model' => $this->modelId, 'content' => $content, 'ratio' => $o['ratio'] ?? $request->output?->aspectRatio, 'duration' => $request->output?->duration, 'seed' => $o['seed'] ?? $request->output?->seed, 'resolution' => $this->resolution($request->output?->resolution)], fn ($v) => $v !== null);
+        }$body = array_filter(['model' => $this->modelId, 'content' => $content, 'ratio' => $o['ratio'] ?? $request->output?->aspectRatio, 'duration' => $request->output?->duration, 'seed' => $o['seed'] ?? $request->output?->seed, 'resolution' => $this->resolution($request->output?->resolution)], fn($v) => $v !== null);
         $reserved = array_flip(['pollIntervalMs', 'pollTimeoutMs', 'ratio', 'seed', 'lastFrameImage', 'referenceImages', 'referenceVideos', 'referenceAudio']);
         $body = array_replace($body, array_diff_key($o, $reserved));
         $p = $this->runner($this->options->sdk)->postJson(Url::joinPath($this->options->baseUrl, '/contents/generations/tasks'), $body, $this->options->authHeaders(), $this->provider());
@@ -57,7 +57,7 @@ final class ByteDanceVideoModel extends BaseModel implements VideoModelInterface
 
     public function poll(VideoJob $job): VideoJob
     {
-        $p = $this->runner($this->options->sdk)->getJson(Url::joinPath($this->options->baseUrl, '/contents/generations/tasks/'.rawurlencode($job->id)), $this->options->authHeaders(), $this->provider());
+        $p = $this->runner($this->options->sdk)->getJson(Url::joinPath($this->options->baseUrl, '/contents/generations/tasks/' . rawurlencode($job->id)), $this->options->authHeaders(), $this->provider());
         $s = strtolower((string) ($p['status'] ?? ''));
         if ($s === 'succeeded') {
             $url = $p['content']['video_url'] ?? null;
@@ -70,13 +70,13 @@ final class ByteDanceVideoModel extends BaseModel implements VideoModelInterface
 
     private function media(Content $c): string
     {
-        return $c->source() === ContentSource::Url ? (string) $c->url() : 'data:'.$c->mimeType().';base64,'.$c->base64Data();
+        return $c->source() === ContentSource::Url ? (string) $c->url() : 'data:' . $c->mimeType() . ';base64,' . $c->base64Data();
     }
 
     private function resolution(?string $r): ?string
     {
         return match ($r) {
-            '1280x720','720x1280','960x960' => '720p','1920x1080','1080x1920','1440x1440' => '1080p',default => $r
+            '1280x720','720x1280','960x960' => '720p','1920x1080','1080x1920','1440x1440' => '1080p',default => $r,
         };
     }
 }

@@ -33,8 +33,8 @@ it('exposes every implemented ByteDance capability', function () {
     expect($p)->toBeInstanceOf(TextProviderInterface::class)->toBeInstanceOf(ImageProviderInterface::class)->toBeInstanceOf(EmbeddingProviderInterface::class)->toBeInstanceOf(VideoProviderInterface::class);
 });
 it('starts ByteDance video tasks', function () {
-    $c = new ByteDanceFakeClient;
-    $f = new Psr17Factory;
+    $c = new ByteDanceFakeClient();
+    $f = new Psr17Factory();
     ByteDance::create([
         'apiKey' => 'key',
         'sdk' => new Sdk($c, $f, $f),
