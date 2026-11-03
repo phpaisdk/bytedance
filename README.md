@@ -1,32 +1,36 @@
-# ByteDance provider
+# PHP AI SDK — ByteDance
 
-<a href="https://github.com/phpaisdk/bytedance/actions"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/phpaisdk/bytedance/tests.yml?branch=main&label=Tests"></a>
-<a href="https://packagist.org/packages/aisdk/bytedance"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/aisdk/bytedance"></a>
-<a href="https://packagist.org/packages/aisdk/bytedance"><img alt="Latest Version" src="https://img.shields.io/packagist/v/aisdk/bytedance"></a>
-<a href="https://packagist.org/packages/aisdk/bytedance"><img alt="License" src="https://img.shields.io/packagist/l/aisdk/bytedance"></a>
-<a href="https://whyphp.dev"><img src="https://img.shields.io/badge/Why_PHP-in_2026-7A86E8?style=flat-square&labelColor=18181b" alt="Why PHP in 2026"></a>
+Video generation with ByteDance for the framework-agnostic [PHP AI SDK](https://phpaisdk.com).
 
-------
+## Installation
 
-ByteDance ModelArk support for text generation, streaming, tools, structured output, multimodal input, image generation, embeddings, and Seedance video generation.
+```bash
+composer require aisdk/bytedance
+```
 
-Configuration uses `ARK_API_KEY`; `baseUrl` can select the BytePlus or Volcengine region.
+Set `ARK_API_KEY` in your environment.
+
+## Usage
 
 ```php
-$video = Generate::video('A cinematic sunrise')
-    ->model(ByteDance::model('doubao-seedance-1-0-pro-250528'))
+use AiSdk\ByteDance;
+use AiSdk\Generate;
+
+$result = Generate::video('A paper boat drifting along a quiet river.')
+    ->model(ByteDance::model('dreamina-seedance-2-5-260628'))
     ->aspectRatio('16:9')
     ->duration(5)
     ->run(timeout: 600);
+
+$result->output->save(__DIR__.'/video.mp4');
 ```
 
 ## Documentation
 
-- [PHP AI SDK documentation](https://phpaisdk.com/docs)
-- [ByteDance documentation](https://phpaisdk.com/docs/bytedance)
+[Read the documentation](https://phpaisdk.com/docs/0.x/providers/bytedance) for configuration, supported features, and more examples.
 
-## Community
+[Contributing](https://github.com/phpaisdk/.github/blob/main/CONTRIBUTING.md) · [Support](https://github.com/phpaisdk/.github/blob/main/SUPPORT.md)
 
-- [Contributing](https://github.com/phpaisdk/.github/blob/main/CONTRIBUTING.md)
-- [Support](https://github.com/phpaisdk/.github/blob/main/SUPPORT.md)
-- For private security reports, email [security@phpaisdk.com](mailto:security@phpaisdk.com).
+## License
+
+The MIT License (MIT). See [LICENSE](LICENSE) for details.
